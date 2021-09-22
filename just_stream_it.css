@@ -1,0 +1,43 @@
+h2 em
+{
+    color: red;
+    font-weight: bold;
+    opacity: 0.6
+
+}
+h2
+{
+    color: white;
+    text-align: center;
+}
+body
+{
+   background-color: black;
+
+}
+.menu h1 em
+{
+    color: red;
+    font-weight: bold;
+    opacity: 0.6
+
+}
+.menu h1, p
+{
+    color: white;
+    text-align: left;
+}
+
+.menu 
+{
+    display: flex;
+
+
+}
+nav
+{
+    display: flex;
+    color: white;
+    flex-direction: column;
+
+}
