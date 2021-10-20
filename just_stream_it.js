@@ -26,8 +26,9 @@ getMovies(moviesUrls).then(function(response){
 
 });
 
-
-getMovies(moviesUrls).then(function(response){
+/*get the seven best movies from a category with url*/ 
+function getSevenBestMovies(url, doc){
+    getMovies(url).then(function(response){
     let movies = [];
     let i = 0;
     let max = 7;
@@ -48,93 +49,15 @@ getMovies(moviesUrls).then(function(response){
 
         let newImage = document.createElement('img');
         newImage.src = movie
-        document.querySelector('section.best_rated').append(newImage)
+        doc.append(newImage)
 
     }
         })
     }
 })
+}
 
-getMovies(actionsMoviesUrls).then(function(response){
-    let movies = [];
-    let i = 0;
-    let max = 7;
-    while (i < response.results.length){
-        movies.push(response.results[i].image_url);
-        i++;
-    }
-    if (movies.length < max){
-        max = max - movies.length;
-        getMovies(response.next).then(function(response){
-            i = 0;
-            while (i < max){
-                movies.push(response.results[i].image_url);
-                i++
-            }
-
-    for (movie of movies){
-
-        let newImage = document.createElement('img');
-        newImage.src = movie
-        document.querySelector('section.action').append(newImage)
-
-    }
-        })
-    }
-})
-
-getMovies(comedyMoviesUrls).then(function(response){
-    let movies = [];
-    let i = 0;
-    let max = 7;
-    while (i < response.results.length){
-        movies.push(response.results[i].image_url);
-        i++;
-    }
-    if (movies.length < max){
-        max = max - movies.length;
-        getMovies(response.next).then(function(response){
-            i = 0;
-            while (i < max){
-                movies.push(response.results[i].image_url);
-                i++
-            }
-
-    for (movie of movies){
-
-        let newImage = document.createElement('img');
-        newImage.src = movie
-        document.querySelector('section.comedy').append(newImage)
-
-    }
-        })
-    }
-})
-
-getMovies(animationMoviesUrls).then(function(response){
-    let movies = [];
-    let i = 0;
-    let max = 7;
-    while (i < response.results.length){
-        movies.push(response.results[i].image_url);
-        i++;
-    }
-    if (movies.length < max){
-        max = max - movies.length;
-        getMovies(response.next).then(function(response){
-            i = 0;
-            while (i < max){
-                movies.push(response.results[i].image_url);
-                i++
-            }
-
-    for (movie of movies){
-
-        let newImage = document.createElement('img');
-        newImage.src = movie
-        document.querySelector('section.animation').append(newImage)
-
-    }
-        })
-    }
-})
+getSevenBestMovies(moviesUrls, document.querySelector('section.best_rated'))
+getSevenBestMovies(animationMoviesUrls, document.querySelector('section.animation'))
+getSevenBestMovies(actionsMoviesUrls, document.querySelector('section.action'))
+getSevenBestMovies(comedyMoviesUrls, document.querySelector('section.comedy'))
