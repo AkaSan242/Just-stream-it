@@ -1,6 +1,4 @@
-
-console.log("hello world !")
-
+var moviePath = 'http://localhost:8000/api/v1/titles/'
 /*the url of all movies from API*/
 var moviesUrls = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score";
 
@@ -9,6 +7,42 @@ var moviesUrls = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score";
 var actionsMoviesUrls = "http://localhost:8000/api/v1/titles/?genre_contains=action&sort_by=-imdb_score";
 var comedyMoviesUrls = "http://localhost:8000/api/v1/titles/?genre_contains=comedy&sort_by=-imdb_score";
 var animationMoviesUrls = "http://localhost:8000/api/v1/titles/?genre_contains=animation&sort_by=-imdb_score";
+
+class Movie {
+    constructor(image_url, title, genre, date_published,
+        rated, imdb_score, directors, actors, duration,
+        countries, box_office_score, resume){
+
+            this.image_url = image_url;
+            this.title = title;
+            this.genre = genre;
+            this.date_published = date_published;
+            this.rated = rated;
+            this.imdb_score = imdb_score;
+            this.directors = directors;
+            this.actors = actors;
+            this.duration = duration;
+            this.countries = countries;
+            this.box_office_score = box_office_score;
+            this.resume = resume;
+
+        }
+
+    showMovie() {
+        console.log(this.image_url,
+        'Film: ' + this.title,
+        'Genre: ' + this.genre,
+        'Date de sortie: ' + this.date_published,
+        'Rated: ' + this.rated,
+        'Imdb score: ' + this.imdb_score,
+        'Réalisateurs: ' + this.directors,
+        'Acteurs: ' + this.actors,
+        'Durée: ' + this.duration,
+        'Pays origine: ' + this.countries,
+        'Entrées box office: ' + this.box_office_score,
+        'Résumé: ' + this.resume )
+    }
+}
 
 
 async function getMovies(url){
@@ -19,9 +53,9 @@ async function getMovies(url){
 
 /* get the best movie on API*/
 getMovies(moviesUrls).then(function(response){
-
+    let bestMovie = response.results[0]
     let newImage = document.createElement('img');
-    newImage.src = response.results[0].image_url;
+    newImage.src = bestMovie.image_url;
     document.querySelector('section.best_movie').append(newImage);
 
 });
@@ -33,7 +67,7 @@ function getSevenBestMovies(url, doc){
     let i = 0;
     let max = 7;
     while (i < response.results.length){
-        movies.push(response.results[i].image_url);
+        movies.push(response.results[i]);
         i++;
     }
     if (movies.length < max){
@@ -41,23 +75,38 @@ function getSevenBestMovies(url, doc){
         getMovies(response.next).then(function(response){
             i = 0;
             while (i < max){
-                movies.push(response.results[i].image_url);
+                movies.push(response.results[i]);
                 i++
-            }
+        };
 
     for (movie of movies){
 
-        let newImage = document.createElement('img');
-        newImage.src = movie
-        doc.append(newImage)
+        getInfos(movie, doc)
 
     }
         })
     }
 })
+};
+
+/*Get all information of a movie by using is Id*/
+function getInfos(movie, doc){
+    getMovies(moviePath + movie.id).then(function(response){
+        var movie = new Movie(response.image_url, response.title,
+            response.genres, response.date_published, response.rated,
+            response.imdb_score, response.directors, response.actors,
+            response.duration, response.countries,
+             response.worldwilde_gross_income, response.description)
+
+        let newImage = document.createElement('img');
+        newImage.src = movie.image_url;
+        doc.append(newImage);
+    })
 }
 
 getSevenBestMovies(moviesUrls, document.querySelector('section.best_rated'))
 getSevenBestMovies(animationMoviesUrls, document.querySelector('section.animation'))
 getSevenBestMovies(actionsMoviesUrls, document.querySelector('section.action'))
 getSevenBestMovies(comedyMoviesUrls, document.querySelector('section.comedy'))
+
+
