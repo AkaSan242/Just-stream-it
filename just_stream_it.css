@@ -1,15 +1,19 @@
-.header
-{
-    display: flex;
+#header
+{   display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
-.header h1
+#header h2
 {
-    color: white;
-    text-align: left;        
+    color: white; 
+    left: 150px;
+    position: fixed;
+    left: 0px;
+    background-color:black;
 
 }
-.header h1 em
+#header h2 em
 {
     color: red;
     font-weight: bold;
@@ -27,6 +31,7 @@ h2
 {
     color: white;
     text-align: center;
+    font-size: xx-large;
 }
 body
 {
@@ -37,11 +42,23 @@ body
 
 .menu
 {
-    display: flex;
     color: white;
     text-align: right;
+    position: fixed;
+    right: 30px;
+    font-size: xx-large;
+    
 }
+.menu a
+{
+    color: white;
+    text-align: right;
+    position: fixed;
+    right: 180px;
+    font-size: xx-large;
+    background-color: black;
 
+}
 .menu li
 {
     display: inline;
@@ -51,6 +68,10 @@ body
 #categories
 {
     color: red;
+    font-weight: bold;
+    opacity: 0.6;
+    background-color: black;
+
 }
 
 article
@@ -64,5 +85,39 @@ article
     display: flex;
     text-align: center;
     margin: auto;
+    border: solid rgba(255, 0, 0, .5);
+    height: 50%;
+    width: 20%;
 }
+.title
+{
+    color: white;
+    font-size: xx-large;
+    text-align: center;
+    
+}
+
+.resume
+{
+    color: white;
+    font-size: x-large;
+    float: none;
+    text-align: center;
+
+}
+
+.best_rated img, .action img, .comedy img, .animation img
+{
+    padding: 40px;
+    margin: 2px;
+    border: solid rgba(255, 0, 0, .5);
+}
+
+.best_rated p, .action p, .comedy p, .animation p
+{
+    color: white;
+    font-size: small;
+    text-align: center;
+}
+
 
