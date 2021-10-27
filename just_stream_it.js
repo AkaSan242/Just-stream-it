@@ -29,21 +29,40 @@ class Movie {
         }
 
     showMovie() {
-        console.log(this.image_url,
-        'Film: ' + this.title,
-        'Genre: ' + this.genre,
-        'Date de sortie: ' + this.date_published,
-        'Rated: ' + this.rated,
-        'Imdb score: ' + this.imdb_score,
-        'Réalisateurs: ' + this.directors,
-        'Acteurs: ' + this.actors,
-        'Durée: ' + this.duration,
-        'Pays origine: ' + this.countries,
-        'Entrées box office: ' + this.box_office_score,
-        'Résumé: ' + this.resume )
+        return {
+            'Film': this.title,
+            'Genre': this.genre,
+            'Date de sortie': this.date_published,
+            'Rated': this.rated,
+            'Imdb score': this.imdb_score,
+            'Réalisateurs': this.directors,
+            'Acteurs': this.actors,
+            'Durée': this.duration,
+            'Pays': this.countries,
+            'Entrées box office': this.box_office_score,
+            'Résumé': this.resume,
+        };
+
+        
     }
 }
-
+   // Get the modal
+   var modal = document.getElementById("myModal");
+  
+   // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+   
+   // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+       modal.style.display = "none";
+    }
+   
+   // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+       }
+   }
 
 async function getMovies(url){
     var response = await fetch(url);
@@ -53,10 +72,21 @@ async function getMovies(url){
 
 /* get the best movie on API*/
 getMovies(moviesUrls).then(function(response){
-    let bestMovie = response.results[0]
-    let newImage = document.createElement('img');
-    newImage.src = bestMovie.image_url;
-    document.querySelector('section.best_movie').append(newImage);
+        let bestMovie = response.results[0];
+
+        getMovies(moviePath + bestMovie.id).then(function(response){
+            let newImage = document.createElement('img');
+            newImage.src = response.image_url;
+            newImage.title = response.title
+            document.querySelector('section.best_movie').append(newImage);
+            let title = document.createElement('p');
+            title.append(response.title);
+            document.querySelector('div.title').append(title);
+            let resume = document.createElement('p');
+            resume.append(response.description);
+            document.querySelector('div.resume').append(resume);
+
+        })
 
 });
 
@@ -92,15 +122,35 @@ function getSevenBestMovies(url, doc){
 /*Get all information of a movie by using is Id*/
 function getInfos(movie, doc){
     getMovies(moviePath + movie.id).then(function(response){
-        var movie = new Movie(response.image_url, response.title,
+
+        var movie = new Movie(
+            response.image_url, response.title,
             response.genres, response.date_published, response.rated,
             response.imdb_score, response.directors, response.actors,
             response.duration, response.countries,
-             response.worldwilde_gross_income, response.description)
+             response.worldwilde_gross_income, response.description
+             )
 
         let newImage = document.createElement('img');
         newImage.src = movie.image_url;
+        newImage.title = movie.title;
+
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+
+        newImage.onclick = function(){
+            modal.style.display = "block";
+            modalImg.src = newImage.src;
+            captionText.innerHTML = "Film: " + movie.title + "<br>" + "Genre: " + movie.genre + "<br>" +
+            "Date de sortie: " +  movie.date_published + "<br>" + "Rated: " +  movie.rated + "<br>" +
+            "Imdb score: " + movie.imdb_score + "<br>" + "Réalisateurs: " + movie.directors + "<br>" +
+            "Acteurs: " + movie.actors + "<br>" + "Durée: " + movie.duration + "min" + "<br>" +
+            "Pays: " + movie.countries + "<br>" + "Entrées Box office: " + movie.box_office_score + "<br>" +
+            "Résumé: " + movie.resume; 
+            
+        }
         doc.append(newImage);
+        
     })
 }
 
