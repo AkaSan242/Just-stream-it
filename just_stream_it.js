@@ -28,23 +28,6 @@ class Movie {
 
         }
 
-    showMovie() {
-        return {
-            'Film': this.title,
-            'Genre': this.genre,
-            'Date de sortie': this.date_published,
-            'Rated': this.rated,
-            'Imdb score': this.imdb_score,
-            'Réalisateurs': this.directors,
-            'Acteurs': this.actors,
-            'Durée': this.duration,
-            'Pays': this.countries,
-            'Entrées box office': this.box_office_score,
-            'Résumé': this.resume,
-        };
-
-        
-    }
 }
    // Get the modal
    var modal = document.getElementById("myModal");
@@ -75,16 +58,13 @@ getMovies(moviesUrls).then(function(response){
         let bestMovie = response.results[0];
 
         getMovies(moviePath + bestMovie.id).then(function(response){
-            let newImage = document.createElement('img');
-            newImage.src = response.image_url;
-            newImage.title = response.title
-            document.querySelector('section.best_movie').append(newImage);
             let title = document.createElement('p');
             title.append(response.title);
             document.querySelector('div.title').append(title);
             let resume = document.createElement('p');
             resume.append(response.description);
             document.querySelector('div.resume').append(resume);
+            getInfos(bestMovie, document.querySelector('section.best_movie'));
 
         })
 
