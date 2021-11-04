@@ -65,6 +65,12 @@ body
     margin: auto;
 }
 
+#Accueil:hover {
+
+    color: gray;
+    opacity: 0.6;
+}
+
 #categories
 {
     color: red;
@@ -72,6 +78,15 @@ body
     opacity: 0.6;
     background-color: black;
 
+}
+
+#categories:hover {
+
+    color: red;
+    font-weight: bold;
+    opacity: 1;
+    background-color: black;
+    cursor: pointer;
 }
 
 article
@@ -104,6 +119,28 @@ article
     float: none;
     text-align: center;
 
+}
+
+.button {
+
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    
+    
+}
+
+input {
+
+    width: 10%;
+    margin-bottom: 1%;
+    border-radius: 10px;
+}
+
+input:hover {
+
+    background-color: gray;
+    color: white;
 }
 
 .best_rated img, .action img, .comedy img, .animation img
