@@ -2,8 +2,10 @@ var moviePath = 'http://localhost:8000/api/v1/titles/'
 /*the url of all movies from API*/
 var moviesUrls = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score";
 
-/* movies urls for each category sort by imdb score */
+/*the url tus to get all categories*/
+var categoriesUrls = "http://localhost:8000/api/v1/genres/"
 
+/* movies urls for each category sort by imdb score */
 var actionsMoviesUrls = "http://localhost:8000/api/v1/titles/?genre_contains=action&sort_by=-imdb_score";
 var comedyMoviesUrls = "http://localhost:8000/api/v1/titles/?genre_contains=comedy&sort_by=-imdb_score";
 var animationMoviesUrls = "http://localhost:8000/api/v1/titles/?genre_contains=animation&sort_by=-imdb_score";
@@ -28,7 +30,8 @@ class Movie {
 
         }
 
-}
+};
+
    // Get the modal
    var modal = document.getElementById("myModal");
   
@@ -51,7 +54,7 @@ async function getMovies(url){
     var response = await fetch(url);
     var responseJson = await response.json();
     return responseJson;
-}
+};
 
 /* get the best movie on API*/
 getMovies(moviesUrls).then(function(response){
@@ -70,16 +73,57 @@ getMovies(moviesUrls).then(function(response){
 
 });
 
+/*Use to get all categories available from API*/
+function getCategories(url, array, lenght){
+    getMovies(url).then(function(response){
+        let i = 0;
+        let max = response.results.length;
+        while (i < max){
+            array.push(response.results[i].name + "<br>");
+            i++
+        }
+
+        if (array.length < lenght){
+            getCategories(response.next, array, lenght);}
+    })
+}
+
+/*Use to get a list of all categries wehn click on categories button*/ 
+getMovies(categoriesUrls).then(function(response){
+    let categories = [];
+    let l = 0;
+    let count = response.count;
+    while (l < response.results.length){
+        categories.push(response.results[l].name + "<br>");
+        l++
+    }
+    getCategories(response.next, categories, count);
+
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    var c = document.getElementById("categories");
+    
+    c.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = "images/sharingan.gif";
+        modalImg.style.height = "40%";
+        captionText.innerHTML = categories;
+        captionText.style.display = "flex";
+    };
+});
+
 /*get the seven best movies from a category with url*/ 
 function getSevenBestMovies(url, doc){
     getMovies(url).then(function(response){
     let movies = [];
     let i = 0;
     let max = 7;
+
     while (i < response.results.length){
         movies.push(response.results[i]);
         i++;
     }
+
     if (movies.length < max){
         max = max - movies.length;
         getMovies(response.next).then(function(response){
@@ -93,10 +137,10 @@ function getSevenBestMovies(url, doc){
 
         getInfos(movie, doc)
 
-    }
+            }
         })
-    }
-})
+        }
+    })
 };
 
 /*Get all information of a movie by using is Id*/
@@ -109,7 +153,7 @@ function getInfos(movie, doc){
             response.imdb_score, response.directors, response.actors,
             response.duration, response.countries,
              response.worldwilde_gross_income, response.description
-             )
+             );
 
         let newImage = document.createElement('img');
         newImage.src = movie.image_url;
@@ -130,13 +174,10 @@ function getInfos(movie, doc){
             
         }
         doc.append(newImage);
-        
     })
-}
+};
 
-getSevenBestMovies(moviesUrls, document.querySelector('section.best_rated'))
-getSevenBestMovies(animationMoviesUrls, document.querySelector('section.animation'))
-getSevenBestMovies(actionsMoviesUrls, document.querySelector('section.action'))
-getSevenBestMovies(comedyMoviesUrls, document.querySelector('section.comedy'))
-
-
+getSevenBestMovies(moviesUrls, document.querySelector('section.best_rated'));
+getSevenBestMovies(animationMoviesUrls, document.querySelector('section.animation'));
+getSevenBestMovies(actionsMoviesUrls, document.querySelector('section.action'));
+getSevenBestMovies(comedyMoviesUrls, document.querySelector('section.comedy'));
