@@ -1,0 +1,304 @@
+#header
+{   display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#header h2
+{
+    color: white; 
+    left: 150px;
+    position: fixed;
+    left: 0px;
+    background-color:black;
+
+}
+#header h2 em
+{
+    color: red;
+    font-weight: bold;
+    opacity: 0.6;
+}
+
+h2 em
+{
+    color: red;
+    font-weight: bold;
+    opacity: 0.6;
+
+}
+h2
+{
+    color: white;
+    text-align: center;
+    font-size: 4em;
+}
+body
+{
+   background-color: black;
+
+}
+
+
+.menu
+{
+    color: white;
+    text-align: right;
+    position: fixed;
+    right: 30px;
+    font-size: xx-large;
+    
+}
+.menu a
+{
+    color: white;
+    text-align: right;
+    position: fixed;
+    right: 180px;
+    font-size: xx-large;
+    background-color: black;
+
+}
+.menu li
+{
+    display: inline;
+    margin: auto;
+}
+
+#Accueil:hover {
+
+    color: gray;
+    opacity: 0.6;
+}
+
+#categories
+{
+    color: red;
+    font-weight: bold;
+    opacity: 0.6;
+    background-color: black;
+
+}
+
+#categories:hover {
+
+    color: red;
+    font-weight: bold;
+    opacity: 1;
+    background-color: black;
+    cursor: pointer;
+}
+
+article
+{
+    background-color: red;
+}
+
+
+.best_movie img
+{
+    display: flex;
+    text-align: center;
+    margin: auto;
+    border: solid rgba(255, 0, 0, .5);
+    height: 50%;
+    width: 20%;
+}
+.title
+{
+    color: white;
+    font-size: xx-large;
+    text-align: center;
+    
+}
+
+.resume
+{
+    color: white;
+    font-size: x-large;
+    float: none;
+    text-align: center;
+
+}
+
+.button {
+
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    
+    
+}
+
+input {
+
+    width: 10%;
+    margin-bottom: 1%;
+    border-radius: 10px;
+}
+
+input:hover {
+
+    background-color: gray;
+    color: white;
+}
+
+.best-rated-image, .action-image, .comedy-image, .animation-image{
+
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+
+}
+
+.best_rated img, .action img, .comedy img, .animation img
+{
+    width: 50%;
+    margin:  90px;
+   box-shadow: 7px 7px 7px white;
+    flex-shrink: 0;
+    flex-basis: 300px;
+    scroll-snap-align: start;
+}
+::-webkit-scrollbar {
+    height: 20px;
+    width: 100%;
+    background-color: transparent;
+}
+
+
+::-webkit-scrollbar-button:horizontal{
+
+    background-color: red;
+    border-radius: 3px; 
+       
+      
+}
+
+ 
+/* Turn on single button up on top, and down on bottom */
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    
+    display: block;
+}
+ 
+::-webkit-scrollbar-button:horizontal:start:increment,
+::-webkit-scrollbar-button:horizontal:end:decrement {
+
+    display: none;
+}
+ 
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:horizontal:increment {
+
+    background-color: red;
+    width: 3%;
+    border-radius: 0px 15px 15px 0px;
+    
+}
+ 
+
+::-webkit-scrollbar-button:horizontal:decrement {
+
+    background-color: red;
+    width: 3%;
+    border-radius: 15px 0px 0px 15px;
+   
+    
+}
+
+::-webkit-scrollbar-button:horizontal:decrement:hover, ::-webkit-scrollbar-button:horizontal:increment:hover {
+
+    background-color: white;
+}
+
+ 
+::-webkit-scrollbar-track:horizontal {
+
+    background-color:transparent;
+    height: 30px;
+
+}
+
+.modal {
+
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+  }
+
+  /* Modal Content/Box */
+.modal-content {
+
+    background-color: black;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    height: 80%;
+
+  }
+.modal-content img {
+
+    width: 25%;
+}
+
+.modal-content div {
+
+    width: 75%;
+}
+.modal-content p
+  {
+      color: white;
+  }
+
+  /* The Close Button */
+.close {
+
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+  }
+  
+.close:hover,
+.close:focus {
+
+    color:rgb(255, 0, 0 , 0.6);
+    text-decoration: none;
+    cursor: pointer;
+
+  }
+
+  #caption {
+
+    margin: auto;
+    display: block;
+    width: 75%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+    font-size: x-large;
+    float: right;
+
+  }
+  
+  #img01 {
+
+    width: 25%;
+    height: auto;
+
+  }
+ 
